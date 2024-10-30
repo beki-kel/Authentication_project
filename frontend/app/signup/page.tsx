@@ -18,7 +18,7 @@ const Signup = () => {
         setError(null);
 
         try {
-            const response = await fetch("https://authentication-project-seven.vercel.app:5000/auth/register", {
+            const response = await fetch("https://authentication-project-gamma.vercel.app/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
