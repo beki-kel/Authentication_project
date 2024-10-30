@@ -51,7 +51,6 @@ Ensure you have the following installed:
      npm install
 
 ### Environment Variables:
-     Create a .env file in the root directory with the following environment variables:
       ```bash
             MONGO_URI= "YOUR_API_KEY"
               PORT= 5000
@@ -60,7 +59,8 @@ Ensure you have the following installed:
               NODE_ENV=development
               CLIENT_URL=http://localhost:3000
               GEMINI_API_KEY="YOUR_API_KEY"
-## Authentication Flow
+  
+  ## Authentication Flow
 
 ### Signup
 The **Signup** flow allows new users to register by providing their name, email, and password. The frontend sends a POST request to the backend `/auth/register` endpoint, which performs the following steps:
