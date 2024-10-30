@@ -23,7 +23,7 @@ const ChatPage: React.FC = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch('https://authentication-project-gamma.vercel.app/auth/user', {
+                const response = await fetch('http://localhost:5000/auth/user', {
                     credentials: 'include', 
                 });
                 const data = await response.json();
@@ -56,7 +56,7 @@ const ChatPage: React.FC = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('https://authentication-project-gamma.vercel.app/chat', {
+            const response = await fetch('http://localhost:5000/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ const ChatPage: React.FC = () => {
 
       const handleLogout = async () => {
         try {
-            const response = await fetch('https://authentication-project-gamma.vercel.app/auth/logout', {
+            const response = await fetch('http://localhost:5000/auth/logout', {
                 method: 'POST',
                 credentials: 'include', // Include cookies to clear the refresh token
             });
