@@ -51,15 +51,15 @@ Ensure you have the following installed:
      npm install
 
 ### Environment Variables:
-   Create a .env file in the root directory with the following environment variables:
-   ```bash
-     MONGO_URI= "YOUR_API_KEY"
-    PORT= 5000
-    ACCESS_TOKEN_SECRET=aa80ac0c73b02909386f6ffed1b44c616baed40b5ad48caa3a368aa2329fe338
-    REFRESH_TOKEN_SECRET=4511aa0a628a90f685b3858e120872fd5716abb27fe6fa360688753fd53d8629
-    NODE_ENV=development
-    CLIENT_URL=http://localhost:3000
-    GEMINI_API_KEY="YOUR_API_KEY"
+     Create a .env file in the root directory with the following environment variables:
+      ```bash
+            MONGO_URI= "YOUR_API_KEY"
+              PORT= 5000
+              ACCESS_TOKEN_SECRET=aa80ac0c73b02909386f6ffed1b44c616baed40b5ad48caa3a368aa2329fe338
+              REFRESH_TOKEN_SECRET=4511aa0a628a90f685b3858e120872fd5716abb27fe6fa360688753fd53d8629
+              NODE_ENV=development
+              CLIENT_URL=http://localhost:3000
+              GEMINI_API_KEY="YOUR_API_KEY"
 ## Authentication Flow
 
 ### Signup
@@ -80,9 +80,9 @@ The **Login** flow handles user authentication with an email and password. On fo
 
 ### chat
 
- 1. When a user sends a request to the backend with a prompt, a middleware checks the authentication tokens.
- 2. If the access token has expired, the middleware uses the refresh token to generate a new access token.
- 3. upon successful authentication the prompt is sent to the route which uses the Gemini API to generate a response
+1. When a user sends a request to the backend with a prompt, a middleware checks the authentication tokens.
+2. If the access token has expired, the middleware uses the refresh token to generate a new access token.
+3. upon successful authentication the prompt is sent to the route which uses the Gemini API to generate a response
 
 ### Session Handling and Authorization
 The session is handled using JWTs to secure and verify user identity. Key details include:
@@ -93,12 +93,12 @@ Route Protection: Protected routes check for the presence of the token. Absence 
 ### Usage
 After setting up the project:
 1. Start the Next.js development server:
-   ```bash
-     npm run dev
-2. start the client
-   ```bash
-     cd front
-     npm run dev
+    ```bash
+           npm run dev
+          2. start the client
+          ```bash
+           cd front
+           npm run dev
 
-__________________________________________________________________________________
-----------------------------------------------------------------------------------
+_________________________________________________________________________________________________________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
