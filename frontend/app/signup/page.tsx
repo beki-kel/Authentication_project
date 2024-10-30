@@ -40,9 +40,9 @@ const Signup = () => {
 
     return (
         <div className="bg-white min-h-screen text-black flex flex-col justify-center items-center">
-            <div className="bg-black w-1/2 text-white flex flex-col py-3 rounded-3xl border-4 shadow-xl border-slate-200">
+            <div className="bg-white w-1/2 text-black flex flex-col py-3 rounded-3xl border-2 shadow-xl border-black">
                 <h2 className="text-4xl py-8 font-bold text-center">Signup</h2>
-                {error && <p style={{ color: "red" }} className="text-center">{error}</p>}
+                {error && <p className="text-center text-red-500 px-4 text-center">{error}</p>}
                 <form onSubmit={handleSubmit} className="w-full flex flex-col items-center text-center">
                     <input 
                         type="text" 
@@ -73,12 +73,21 @@ const Signup = () => {
                     />
                     <button 
                         type="submit" 
-                        className="bg-slate-50 shadow-lg m-4 px-6 py-3 rounded-xl text-black" 
+                        className="button-50" 
                         disabled={loading}
                     >
                         {loading ? "Signing Up..." : "Sign Up"}
                     </button>
                 </form>
+                <p className="text-center my-4">
+                    Already have an account?{" "}
+                    <span 
+                        onClick={() => router.push("/login")} 
+                        className="text-blue-600 cursor-pointer underline"
+                    >
+                        Sign In
+                    </span>
+                </p>
             </div>    
         </div>
     );

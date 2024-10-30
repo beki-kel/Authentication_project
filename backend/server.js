@@ -2,6 +2,7 @@ import express from 'express';
 import {connectDb} from './db/connectDb.js';
 import dotenv from 'dotenv';
 import authRoute from './routes/authRoute.js';
+import chatRoute from './routes/chatRout.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
@@ -24,3 +25,4 @@ app.use(cors({
 }))
 
 app.use('/auth', authRoute)
+app.use('/', chatRoute)

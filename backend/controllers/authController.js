@@ -70,8 +70,14 @@ export const login = async (req, res) => {
             sameSite: 'Strict',
             maxAge: 7 * 24 * 60 * 60 * 1000 
         });
+        res.cookie("accessToken", accessToken, {
+            httpOnly: false,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'Strict',
+            maxAge: 10 * 60 * 1000 
+        });
 
-        res.json({ success: true, accessToken,
+        res.json({ success: true,
             user:{
                 ...user._doc,
                 password: undefined,
@@ -96,26 +102,27 @@ export const logout = async (req, res) => {
         }
 
         res.clearCookie("refreshToken");
+        res.clearCookie("accessToken");
         res.status(200).json({ success: true, message: "Logged out" });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
 };
 
-export const refreshAccessToken = async (req, res) => {
+
+export const getUser = async (req, res) => {
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) return res.status(401).json({ message: "Authentication required" });
 
     try {
-        const user = await User.findOne({ refreshToken });
-        if (!user) return res.status(403).json({ message: "Invalid refresh token" });
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, decoded) => {
+            if (err) return res.status(403).json({ message: "Invalid token" });
 
-        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-            if (err) return res.status(403).json({ message: "Invalid refresh token" });
+            const user = await User.findById(decoded.id).select("-password");
+            if (!user) return res.status(404).json({ message: "User not found" });
 
-            const accessToken = generateAccessToken(user);
-            res.json({ success: true, accessToken });
+            res.json({ success: true, user });
         });
     } catch (error) {
         res.status(403).json({ success: false, message: error.message });
