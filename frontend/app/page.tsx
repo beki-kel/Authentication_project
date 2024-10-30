@@ -1,5 +1,3 @@
-// frontend/app/page.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -9,43 +7,37 @@ const Home = () => {
     const [user, setUser] = useState<string | null>(null);
 
     useEffect(() => {
-        const checkUser = async () => {
-            try {
-                const response = await fetch("http://localhost:5000/auth/user", {
-                    credentials: "include",
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    setUser(data.name);
-                }
-            } catch (error) {
-                console.log("Not authenticated");
-            }
-        };
-
-        checkUser();
+        const token = localStorage.getItem("token");
+        if (token) {
+            const storedUser = localStorage.getItem("user");
+            setUser(storedUser || "User");
+        }
     }, []);
 
+    const handleLogout = () => {
+       
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setUser(null);
+    };
+
     return (
-        <main>
-            <h1>Welcome to Our App</h1>
+        <main className="w-full flex flex-col min-h-screen justify-center items-center bg-white text-black">
+            <h1 className="text-4xl font-semibold mb-3">Welcome!</h1>
             {user ? (
-                <div>
+                <div className="flex flex-col justify-center w-full items-center">
                     <p>Hello, {user}!</p>
-                    <button onClick={async () => {
-                        await fetch("http://localhost:5000/auth/logout", {
-                            method: "POST",
-                            credentials: "include",
-                        });
-                        setUser(null);
-                    }}>
+                    <button
+                        onClick={handleLogout}
+                        className="button-50"
+                    >
                         Logout
                     </button>
                 </div>
             ) : (
-                <div>
-                    <p>You are not logged in.</p>
-                    <Link href="/login">Login</Link> | <Link href="/signup">Sign Up</Link>
+                <div className="flex flex-col justify-center w-full items-center space-y-3">
+                    <Link href="/login" className="button-50">Login</Link> 
+                    <Link href="/signup" className="button-50">Sign Up</Link>
                 </div>
             )}
         </main>

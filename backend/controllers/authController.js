@@ -34,30 +34,11 @@ export const register = async (req, res) => {
             password:hashedPassword,
             })
 
-            const accessToken = generateAccessToken(user);
-            const refreshToken = generateRefreshToken(user);
-            user.refreshToken = refreshToken;
-
             await user.save();
-
-        
-
-        res.cookie("refreshToken", refreshToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'Strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000 
-        });
 
         res.status(201).json({ success: true,
             message: "User created successfully",
-            user:{
-                ...user._doc,
-                password: undefined,
-                _id: undefined,
-                refreshToken: undefined,   
-            },
-            accessToken });
+            });
     }catch(error){
         res.status(400).json({success:false, message:error.message})
     }
@@ -85,11 +66,20 @@ export const login = async (req, res) => {
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'Strict'
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'Strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000 
         });
 
-        res.json({ success: true, accessToken });
+        res.json({ success: true, accessToken,
+            user:{
+                ...user._doc,
+                password: undefined,
+                _id: undefined,
+                refreshToken: undefined,   
+            },
+
+        });
     } catch (error) {
         res.status(400).json({ success: false, message: error.message });
     }
