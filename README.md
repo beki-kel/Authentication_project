@@ -49,7 +49,8 @@ Ensure you have the following installed:
 2. Install dependencies:
    ```bash
      npm install
-3. Environment Variables:
+
+### Environment Variables:
    Create a .env file in the root directory with the following environment variables:
    ```bash
      MONGO_URI= "YOUR_API_KEY"
